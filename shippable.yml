@@ -1,11 +1,10 @@
-##java shippable yaml file
----
 language: java
-jdk: oraclejdk8
-
-build:
-    ci:
-        - mkdir -p shippable/testresults
-        - mkdir -p shippable/codecoverage
-        - shippable_retry mvn install
-        - cp -r target shippable/codecoverage
+jdk:
+- openjdk11
+after_success:
+- mvn clean cobertura:cobertura
+- mvn test
+notifications:
+email:
+recipients:
+- s.murphy90@nuigalway.ie
